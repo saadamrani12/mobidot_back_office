@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content%}
+
+<form action="{{ url_for(('back_office.create_session')) }}" method="POST">
+    <div class="col-md-6 mx-auto" style="padding: 100px;">
+        <div class="mb-3">
+            <label for="app_id" class="form-label font-monospace mx-auto">App identification</label>
+            <input type="text" name="app_id" required class="form-control" id="app_id">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label font-monospace mx-auto">Password</label>
+            <input type="text" name="password" required class="form-control" id="password">
+        </div>
+
+        <button type="submit" style="margin-left: 159px;"  class="btn btn-primary">Access</button>
+
+    </div>
+</form>
+{% endblock %}

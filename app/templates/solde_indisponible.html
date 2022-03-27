@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="col-md-6 mx-auto" >
+    <form action="{{ url_for('back_office.cancel_reservation')}}" method="POST" class="form-container">
+        <div class="mb-3 form-check"><h1>Solde  Indisponible</h1></div>
+        <div class="mb-3 form-check">
+            <label class="form-label">Reservation ID</label>
+            <input type="text" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
+        </div>
+        <div class="mb-3 form-check">
+            <label  class="form-label">Last name</label>
+            <input type="text" readonly class="form-control" value="{{last_name}}" >
+        </div>
+         <div class="mb-3 form-check">
+            <label  class="form-label">First name</label>
+            <input type="text" readonly class="form-control" value="{{first_name}}" >
+        </div>
+
+         <div class="mb-3 form-check">
+            <label  class="form-label">OC New Solde</label>
+            <input type="text" required class="form-control" name="oc_new_solde" >
+        </div>
+
+        <div class="mb-3 form-check">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="button" class="btn btn-primary" onclick="">Close</button></div>
+    </form>
+</div>
+{% endblock %}

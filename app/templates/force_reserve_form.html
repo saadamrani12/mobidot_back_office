@@ -1,18 +1,18 @@
-{% extends "base.html" %}{% block content%}
+{% extends "base.html" %}{% include "navbar.html"%}{% block content%}
  <div class="col-md-6 mx-auto" >
     <form action="{{ url_for('back_office.force_reservation')}}" method="POST" class="form-container">
         <div class="mb-3 form-check"><h1>Force Reservation</h1></div>
         <div class="mb-3 form-check">
             <label class="form-label">Reservation ID</label>
-            <input type="text" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
+            <input type="text" readonly class="form-control" name="reservation_request_id" value="{{request_id}}"style="text-align: center;">
         </div>
         <div class="mb-3 form-check">
-            <label  class="form-label">Password</label>
-            <input type="text" readonly class="form-control" value="{{last_name}}" >
+            <label  class="form-label">Last name</label>
+            <input type="text" readonly class="form-control" style="text-align: center;" value="{{last_name}}" >
         </div>
          <div class="mb-3 form-check">
-            <label  class="form-label">Password</label>
-            <input type="text" readonly class="form-control" value="{{first_name}}" >
+            <label  class="form-label">First Name</label>
+            <input type="text" readonly style="text-align: center;" class="form-control" value="{{first_name}}" >
         </div>
         <div class="mb-3 form-check">
             <label  class="form-label">OC Ticket Num</label>
@@ -20,16 +20,16 @@
         </div>
          <div class="mb-3 form-check">
             <label  class="form-label">OC New Solde</label>
-            <input type="text" required class="form-control" name="oc_new_solde" >
+            <input type="number" required class="form-control" name="oc_new_solde" >
         </div>
         <div class="mb-3 form-check">
             <label  class="form-label">OC Solde ID</label>
-            <input type="text"  class="form-control" name="oc_solde_id" >
+            <input type="number"  class="form-control" name="oc_solde_id" >
         </div>
 
         <div class="mb-3 form-check">
-        <button type="submit" class="btn btn-primary">Login</button>
-        <button type="button" class="btn btn-primary" onclick="">Close</button></div>
+        <button type="submit" class="btn btn-primary">Force</button>
+        <a href="{{ url_for('back_office.create_session')}}"><button type="button" class="btn btn-primary" onclick="">Close</button></a></div>
     </form>
 </div>
 {% endblock %}

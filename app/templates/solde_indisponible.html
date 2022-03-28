@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "base.html"%}{% include "navbar.html"%}
 {% block content %}
 <div class="col-md-6 mx-auto" >
     <form action="{{ url_for('back_office.cancel_reservation')}}" method="POST" class="form-container">
@@ -23,7 +23,7 @@
 
         <div class="mb-3 form-check">
         <button type="submit" class="btn btn-primary">Login</button>
-        <button type="button" class="btn btn-primary" onclick="">Close</button></div>
+            <a href="{{ url_for('back_office.create_session')}}"><button type="button" class="btn btn-primary" onclick="">Close</button></a></div>
     </form>
 </div>
 {% endblock %}

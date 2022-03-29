@@ -1,7 +1,0 @@
-{
-  "manual_reserve": "http://35.158.69.207:5000/manualReserve",
-  "check_token": "http://35.158.69.207:5000/checkBackOfficeToken",
-  "force_reserve": "http://35.158.69.207:5000/forceReservationOCSolde",
-  "solde_indisponible": "http://35.158.69.207:5000/soldeOCindisponible",
-  "DATABASE_URI": "mysql://root:saadroot1234@localhost:3306/mobidot"
-}

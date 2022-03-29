@@ -18,8 +18,9 @@
     <thead>
     <tr>
         <th scope="col">Reservation ID</th>
+        <th>First name</th>
+        <th>Last name</th>
         <th scope="col">ID type</th>
-        <th scope="col">CIN</th>
         <th scope="col">Num</th>
         <th scope="col">Date Reseravtion</th>
 
@@ -27,23 +28,24 @@
     </thead>
     <tbody>
     {% for reservation in reservations%}
-    <tr>
-        <th scope="row">{{reservation.request_id}}</th>
-<!--        <td>{{reservation.first_name}}</td>-->
-<!--        <td>{{reservation.last_name}}</td>-->
+
+<!--    <a href="{{ url_for('back_office.listreservation')}}"><div>-->
+
+    <tr >
+       <th scope="row">{{reservation.request_id}}</th>
+        <td>{{reservation.first_name}}</td>
+        <td>{{reservation.last_name}}</td>
         <td>{{reservation.identification_type}}</td>
         <td>{{reservation.identification_num}}</td>
         <td>{{reservation.date_reservation}}</td>
-<!--        <input class="{{reservation.request_id}}" id="request_id" value="{{reservation.request_id}}">-->
 
+<!--        <input class="{{reservation.request_id}}" id="request_id" value="{{reservation.request_id}}">-->
+        {% if code == '0000' %}
         <td>
-           <a href="{{ url_for('back_office.force_reserve_form', request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name)}}"> <button id="force" value="{{reservation.request_id}}" class="btn btn-primary" type="submit" onclick="">Force Reservation</button></a>
-<!--       <form method="POST" action="{{ url_for('back_office.force_reserve_form', request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name)}}"> <button class="btn btn-primary" type="submit" onclick="">Force Reservation</button></form>-->
+            <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant)}}"> <button  value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust Reservation</button></a>
+
         </td>
-        <td>
-            <a href="{{ url_for('back_office.solde_indisponible_form', request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name)}}">
-            <button class="btn btn-danger">Solde Indisponible</button></a>
-        </td>
+        {% endif %}
 
     </tr>
     {% endfor %}

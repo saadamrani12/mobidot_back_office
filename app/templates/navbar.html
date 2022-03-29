@@ -7,7 +7,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Cashplus</a>
+        <li class="navbar-nav me-auto mb-2 mb-lg-0" >
+            <img src="{{url_for('static' , filename='cp_logo.jpeg')}}" style="width:41px"></li>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,7 +17,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('back_office.create_session')}}">Reservations</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('back_office.listreservation')}}">Reservations</a>
                     {% endif %}
                 </li>
                 <!--        <li class="nav-item">-->

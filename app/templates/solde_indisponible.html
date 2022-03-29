@@ -15,6 +15,14 @@
             <label  class="form-label">First name</label>
             <input type="text" readonly class="form-control" value="{{first_name}}" >
         </div>
+         <div class="mb-3 form-check">
+            <label  class="form-label">Identification type</label>
+            <input type="text" readonly  class="form-control" value="{{type_id}}" >
+        </div>
+         <div class="mb-3 form-check">
+            <label  class="form-label">Identification number</label>
+            <input type="text" readonly  class="form-control" value="{{num_id}}" >
+        </div>
 
          <div class="mb-3 form-check">
             <label  class="form-label">OC New Solde</label>
@@ -22,8 +30,8 @@
         </div>
 
         <div class="mb-3 form-check">
-        <button type="submit" class="btn btn-primary">Login</button>
-            <a href="{{ url_for('back_office.create_session')}}"><button type="button" class="btn btn-primary" onclick="">Close</button></a></div>
+        <button type="submit" class="btn btn-primary">Cancel reservation</button>
+            <a href="{{ url_for('back_office.listreservation')}}"><button type="button" class="btn btn-primary" onclick="">Close</button></a></div>
     </form>
 </div>
 {% endblock %}

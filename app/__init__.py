@@ -2,12 +2,10 @@ from flask import Flask
 from logging.config import dictConfig
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 from datetime import timedelta
 from flask_login import LoginManager
-
-db = SQLAlchemy()
-DB_NAME = "database.db"
+from flask_mysqldb import MySQL
+import json
 
 dictConfig({
     'version': 1,
@@ -24,18 +22,23 @@ dictConfig({
         'handlers': ['wsgi']
     }
 })
-
-
+db = SQLAlchemy()
 session = Session()
+
+with open('./config.json') as config:
+    config_data = json.load(config)
+
 
 def create_app():
     app = Flask(__name__)
     app.logger.info('==================MOBIDOT=====================')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = config_data['DATABASE_URI']
     app.config['SECRET_KEY'] = 'sceret secret'
     app.config['SESSION_TYPE'] = 'sqlalchemy'
     # app.config['SESSION_FILE_THRESHOLD'] = 5
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=50)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SESSION_SQLALCHEMY_TABLE'] = "sessions"
     # app.config["SESSION_PERMANENT"] = False
@@ -46,11 +49,8 @@ def create_app():
     db.init_app(app)
     # app.session = Session(app)
     session.secret_key = 'super secret key'
-    # app.session.permanent = True
-    # app.session.permanent_session_lifetime = timedelta(seconds=30)
-    # session.init_app(app)
-    from .models import User
-    create_database(app)
+
+    from .models import Administrators
 
     login_manager = LoginManager()
     login_manager.login_view = 'back_office.auth_login'
@@ -61,12 +61,11 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return Administrators.query.get(int(id))
 
     return app
 
-
-def create_database(app):
-    if not path.exists('app/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
+# def create_database(app):
+#     if not path.exists('app/' + DB_NAME):
+#         db.create_all(app=app)
+#         print('Created Database!')

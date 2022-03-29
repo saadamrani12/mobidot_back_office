@@ -4,7 +4,8 @@ from flask import render_template, Blueprint, request, url_for, current_app as a
 from hashlib import sha256
 from flask_login import login_required, login_user, logout_user, current_user
 from .models import Administrators
-from app.md_helpers import manual_reserve, force_reserve, cancel_reserve
+from app.md_helpers import manual_reserve, force_reserve, cancel_reserve,password_hash
+
 
 back_office = Blueprint('back_office', __name__)
 
@@ -119,7 +120,7 @@ def cancel_reservation():
 def listreservation():
     if 'data' in session:
         request_id = str(random.randint(99, 10000))
-        access_token = sha256((session['data']['password'] + request_id).encode('utf-8')).hexdigest()
+        access_token = sha256((password_hash(session['data']['password']) + request_id).encode('utf-8')).hexdigest()
         data = dict(access_token=access_token.upper(), request_id=str(request_id),
                     app_id=int(session['data']['app_id']))
         data_json = json.dumps(data)
@@ -137,9 +138,10 @@ def listreservation():
             flash('Access Denied', category="error")
             return render_template('login.html')
         if user:
-            if user.password == password:
+            # if user.password == password:
+            if user.password == password_hash(password):
                 request_id = str(random.randint(99, 10000))
-                access_token = sha256((password + request_id).encode('utf-8')).hexdigest()
+                access_token = sha256((password_hash(password) + request_id).encode('utf-8')).hexdigest()
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
                                        request_id=str(request_id),
                                        password=password)
@@ -148,11 +150,12 @@ def listreservation():
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)
                 if "code_time_out" not in ams:
+                    print(ams)
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'],
                                            user=current_user)
                 if "code_time_out" in ams:
                     return render_template('time_out.html')
-            if password != user.password:
+            if user.password != password_hash(password):
                 flash('Wrong Password', category="error")
                 return render_template('login.html')
 

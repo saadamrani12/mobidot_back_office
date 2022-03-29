@@ -37,12 +37,10 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = config_data['DATABASE_URI']
     app.config['SECRET_KEY'] = 'sceret secret'
     app.config['SESSION_TYPE'] = 'sqlalchemy'
-    # app.config['SESSION_FILE_THRESHOLD'] = 5
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SESSION_SQLALCHEMY_TABLE'] = "sessions"
-    # app.config["SESSION_PERMANENT"] = False
-    # app.config['SESSION_SQLALCHEMY'] = db
+
 
     app.config.update(SESSION_COOKIE_SECURE=True)
 

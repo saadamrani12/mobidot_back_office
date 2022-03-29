@@ -1,9 +1,11 @@
 import requests, json
 from flask import current_app as app
+from hashlib import sha256
 
 headers = {'content-type': 'application/json'}
-def force_reserve(data_json):
 
+
+def force_reserve(data_json):
     try:
         # response = requests.request(url='http://35.158.69.207:5000/forceReservationOCSolde', headers=headers,
         #                             method='POST', data=data_json)
@@ -42,3 +44,8 @@ def cancel_reserve(data_json):
         return dict(code_time_out="0000")
     data_dict = json.loads(response.content)
     return data_dict
+
+
+def password_hash(s):
+    hash = sha256((s).encode('utf-8')).hexdigest()
+    return hash

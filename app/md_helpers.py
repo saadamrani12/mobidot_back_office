@@ -1,9 +1,9 @@
 import requests, json
 from flask import current_app as app
 
-
+headers = {'content-type': 'application/json'}
 def force_reserve(data_json):
-    headers = {'content-type': 'application/json'}
+
     try:
         # response = requests.request(url='http://35.158.69.207:5000/forceReservationOCSolde', headers=headers,
         #                             method='POST', data=data_json)
@@ -18,9 +18,7 @@ def force_reserve(data_json):
 
 
 def manual_reserve(data_json):
-    headers = {'content-type': 'application/json'}
     try:
-        # try:
         response = requests.request(url='http://127.0.0.1:5000/manualReserve', headers=headers, method='POST',
                                     data=data_json)
         # response = requests.request(url=config_data['manual_reserve'], headers=headers, method='POST',
@@ -34,7 +32,6 @@ def manual_reserve(data_json):
 
 
 def cancel_reserve(data_json):
-    headers = {'content-type': 'application/json'}
     try:
         response = requests.request(url='http://127.0.0.1:5000/soldeOCindisponible', headers=headers,
                                     method='POST', data=data_json)

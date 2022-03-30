@@ -19,18 +19,15 @@ def auth_login():
 
 
 @back_office.route('/logout', methods=methods)
-# @login_required
 def logout():
     if 'data' in session:
         session.pop('data')
-    # logout_user()
     return redirect(url_for('back_office.auth_login'))
 
 
 @back_office.route(
     '/force_form/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>',
     methods=methods)
-# @login_required
 def force_reserve_form(request_id, first_name, last_name, num_id, type_id):
     if 'data' in session:
         return render_template('force_reserve_form.html', request_id=request_id, first_name=first_name,
@@ -40,7 +37,6 @@ def force_reserve_form(request_id, first_name, last_name, num_id, type_id):
 
 
 @back_office.route('/force', methods=methods)
-# @login_required
 def force_reservation():
     if 'data' in session:
         try:
@@ -84,7 +80,6 @@ def force_reservation():
 @back_office.route(
     '/solde_ind/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>',
     methods=methods)
-# @login_required
 def solde_indisponible_form(request_id, first_name, last_name, num_id, type_id):
     if 'data' in session:
         return render_template('solde_indisponible.html', request_id=request_id, first_name=first_name,
@@ -94,14 +89,14 @@ def solde_indisponible_form(request_id, first_name, last_name, num_id, type_id):
 
 
 @back_office.route('/soldeIndisponible', methods=methods)
-# @login_required
 def cancel_reservation():
     if 'data' in session:
         try:
             request_id = request.form.get('reservation_request_id')
             oc_new_solde = request.form.get('oc_new_solde')
             if not request_id or not oc_new_solde:
-                session.pop('data')
+                if 'data' in session:
+                    session.pop('data')
                 flash('Please go step by step', category='error')
                 return render_template('login.html')
             data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
@@ -175,53 +170,9 @@ def listreservation():
 @back_office.route(
     '/reservation_details/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>',
     methods=methods)
-# @login_required
 def reservation_details(request_id, first_name, last_name, num_id, type_id, montant):
     if 'data' in session:
         return render_template('single_reservation.html', request_id=request_id, first_name=first_name,
                                last_name=last_name, num_id=num_id, type_id=type_id, montant=montant)
-    flash('You should be Logged in',category='error')
+    flash('You should be Logged in', category='error')
     return render_template('login.html')
-
-# @back_office.route('listreservation', methods=methods)
-# def listreservation():
-#     if 'data' in session:
-#         request_id = str(random.randint(99, 10000))
-#         access_token = sha256((password_hash(session['data']['password']) + request_id).encode('utf-8')).hexdigest()
-#         data = dict(access_token=access_token.upper(), request_id=str(request_id),
-#                     app_id=int(session['data']['app_id']))
-#         data_json = json.dumps(data)
-#         ams = manual_reserve(data_json)
-#         if "code_time_out" not in ams:
-#             return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'],
-#                                    user=current_user)
-#         if "code_time_out" in ams:
-#             return render_template('time_out.html')
-#     if 'data' not in session:
-#         app_id = request.form.get('app_id')
-#         password = request.form.get('password')
-#         user = Administrators.query.filter_by(mobidot_access=app_id).first()
-#         if not user:
-#             flash('Access Denied', category="error")
-#             return render_template('login.html')
-#         if user:
-#             # if user.password == password:
-#             if user.password == password_hash(password):
-#                 request_id = str(random.randint(99, 10000))
-#                 access_token = sha256((password_hash(password) + request_id).encode('utf-8')).hexdigest()
-#                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
-#                                        request_id=str(request_id),
-#                                        password=password)
-#                 login_user(user, remember=True)
-#                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
-#                 data_json = json.dumps(data)
-#                 ams = manual_reserve(data_json)
-#                 if "code_time_out" not in ams:
-#                     print(ams)
-#                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'],
-#                                            user=current_user)
-#                 if "code_time_out" in ams:
-#                     return render_template('time_out.html')
-#             if user.password != password_hash(password):
-#                 flash('Wrong Password', category="error")
-#                 return render_template('login.html')

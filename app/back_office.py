@@ -8,8 +8,8 @@ back_office = Blueprint('back_office', __name__)
 
 methods = ['GET', 'POST']
 
-with open('./config.json') as config:
-    config_data = json.load(config)
+# with open('./config.json') as config:
+#     config_data = json.load(config)
 
 
 @back_office.route('/', methods=methods)
@@ -47,6 +47,7 @@ def force_reservation():
             oc_ticket_num = request.form.get('oc_ticket_num')
             oc_new_solde = request.form.get('oc_new_solde')
             if not oc_ticket_num or not oc_new_solde:
+                session.pop('data')
                 flash('Please go step by step', category='error')
                 return render_template('login.html')
             app.logger.info(request_id)
@@ -97,6 +98,8 @@ def cancel_reservation():
             request_id = request.form.get('reservation_request_id')
             oc_new_solde = request.form.get('oc_new_solde')
             if not request_id or not oc_new_solde:
+                session.pop('data')
+                flash('Please go step by step',category='error')
                 return render_template('login.html')
             data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                         reservation_request_id=request_id, app_id=int(session['data']['app_id']),

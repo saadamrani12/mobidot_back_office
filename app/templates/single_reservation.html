@@ -1,6 +1,8 @@
 {% extends "base.html"%}  {% include "navbar.html"%}
 
 {% block content %}
+<h1 style="margin-left: 390px;">Reservation Details</h1>
+<div style="margin-top: 115px;background-color: whitesmoke;">
 <div class="col-md-8 mx-auto" style="padding: 25px;">
 <form class="row g-3 needs-validation" novalidate>
 <!--  <div class="col-md-4">-->
@@ -29,7 +31,7 @@
     <label for="validationCustom05" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">ID number</label>
     <input type="text" class="form-control" style="width: 157px;" id="validationCustom05" value="{{num_id}}" readonly>
   </div>
-  <div class="col-md-3" style="margin-left: 36px;">
+  <div class="col-md-3" style="margin-left: 36px;width: 223px;">
     <label for="validationCustom05" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">Montant </label>
     <input type="text" class="form-control"  value="{{montant}}" readonly>
   </div>
@@ -47,5 +49,5 @@
 
   </div>
 </div>
-
+</div>
 {% endblock %}

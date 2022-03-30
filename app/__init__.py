@@ -25,8 +25,8 @@ dictConfig({
 db = SQLAlchemy()
 session = Session()
 
-with open('./config.json') as config:
-    config_data = json.load(config)
+# with open('./config.json') as config:
+#     config_data = json.load(config)
 
 
 def create_app():

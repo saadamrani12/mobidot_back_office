@@ -4,11 +4,11 @@
 <div class="p-4">
 <form action="{{ url_for(('back_office.listreservation')) }}" method="POST">
     <div class="col-md-6 mx-auto" style="padding: 100px;border: wheat;border-style: double;">
-        <div class="mb-3 " style="margin-left: 87px;">
+        <div class="mb-3 " style="margin-left: 105px;margin-top: -16px;margin-bottom: -45px;">
             <img src="{{url_for('static' , filename='cp_logo.jpeg')}}">
         </div>
         <div class="mb-3" >
-            <label  class="form-label font-monospace mx-auto">Identification</label>
+            <label  class="form-label font-monospace mx-auto" style="margin-top: 61px;">Identification</label>
             <input type="text" name="app_id" required class="form-control" id="app_id">
         </div>
         <div class="mb-3">

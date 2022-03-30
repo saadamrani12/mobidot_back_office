@@ -33,33 +33,21 @@ def create_app():
     app = Flask(__name__)
     app.logger.info('==================MOBIDOT=====================')
 
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = config_data['DATABASE_URI']
     app.config['SECRET_KEY'] = 'sceret secret'
     app.config['SESSION_TYPE'] = 'sqlalchemy'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SESSION_SQLALCHEMY_TABLE'] = "sessions"
-
-
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''
     app.config.update(SESSION_COOKIE_SECURE=True)
 
     db.init_app(app)
     # app.session = Session(app)
     session.secret_key = 'super secret key'
 
-    from .models import Administrators
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'back_office.auth_login'
-    login_manager.init_app(app)
     from app.back_office import back_office
     app.register_blueprint(back_office, url_prefix='/')
     app.session = {}
-
-    @login_manager.user_loader
-    def load_user(id):
-        return Administrators.query.get(int(id))
 
     return app
 

@@ -11,43 +11,39 @@
 <!--  </div>-->
   <div class="row g-3 needs-validation" style="margin-left: 86px;">
   <div class="col-md-4">
-    <label for="validationCustom01" class="form-label">First name</label>
+    <label for="validationCustom01" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">First name</label>
     <input type="text" class="form-control" id="validationCustom01" value="{{first_name}}" readonly>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
   </div>
   <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Last name</label>
+    <label for="validationCustom02" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">Last name</label>
     <input type="text" class="form-control" id="validationCustom02" value="{{last_name}}" readonly>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
   </div>
   </div>
-  <div class="row g-3 needs-validation" style="margin-left: 123px;">
+  <div class="row g-3 needs-validation" style="margin-left: 86px;">
   <div class="col-md-2" style="">
-    <label for="validationCustom03" class="form-label">ID type</label>
+    <label for="validationCustom03" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">ID type</label>
     <input type="text" class="form-control" id="validationCustom03" value="{{type_id}}" readonly>
   </div>
 
   <div class="col-md-2">
-    <label for="validationCustom05" class="form-label">ID number</label>
-    <input type="text" class="form-control" id="validationCustom05" value="{{num_id}}" readonly>
+    <label for="validationCustom05" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">ID number</label>
+    <input type="text" class="form-control" style="width: 157px;" id="validationCustom05" value="{{num_id}}" readonly>
   </div>
-  <div class="col-md-3">
-    <label for="validationCustom05" class="form-label">Montant </label>
+  <div class="col-md-3" style="margin-left: 36px;">
+    <label for="validationCustom05" class="form-label" style="font-family: sans-serif;font-size: 19px;text-align: center;">Montant </label>
     <input type="text" class="form-control"  value="{{montant}}" readonly>
   </div>
 </div>
   </form>
 
 
-  <div class="col-12" style="padding: 29px;margin-left: 162px;">
+  <div class="col-12" style="padding: 29px;margin-left: 70px;">
 
     <a href="{{ url_for('back_office.force_reserve_form',num_id=num_id,type_id=type_id, request_id=request_id,first_name=first_name,last_name=last_name)}}"> <button id="force" value="{{request_id}}" class="btn btn-primary" type="submit" >Force Reservation</button></a>
     <a href="{{ url_for('back_office.solde_indisponible_form',num_id=num_id,type_id=type_id,request_id=request_id,first_name=first_name,last_name=last_name)}}">
       <button class="btn btn-danger">Solde Indisponible</button></a>
+    <a href="{{ url_for('back_office.listreservation',)}}">
+      <button class="btn btn-warning">Go back</button></a>
 
   </div>
 </div>

@@ -4,6 +4,16 @@ from hashlib import sha256
 
 headers = {'content-type': 'application/json'}
 
+def check_admin(data_json):
+    try:
+        response = requests.request(url='http://127.0.0.1:5000/checkBackOfficeToken', headers=headers,
+                                    method='POST', data=data_json)
+    except Exception as e:
+        app.logger.info(e)
+        return dict(code_time_out="0000")
+    data_dict = json.loads(response.content)
+    return data_dict
+
 
 def force_reserve(data_json):
     try:

@@ -1,8 +1,9 @@
-{% extends "base.html"%}{% include "navbar.html"%}
+{% extends "base.html"%}{% include "navbar.html"%}{% block title%}Back Office{% endblock %}
 {% block content %}
+<div style="background-color: whitesmoke;margin-top: 103px;">
 <div class="col-md-6 mx-auto" >
     <form action="{{ url_for('back_office.cancel_reservation')}}" method="POST" class="row g-3">
-        <div class="mb-3 form-check"><h1>Solde  Indisponible</h1></div>
+        <div class="mb-3 form-check" style="margin-left:112px;"><h1>Solde  Indisponible</h1></div>
         <div class="mb-3 form-check" style="width:50%;">
             <label class="form-label">Reservation ID</label>
             <input type="text" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
@@ -34,4 +35,5 @@
             <a href="{{ url_for('back_office.listreservation')}}"><button type="button" class="btn btn-warning" onclick="">Close</button></a></div>
     </form>
 </div>
+    </div>
 {% endblock %}

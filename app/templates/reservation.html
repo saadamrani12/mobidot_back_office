@@ -13,44 +13,47 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 <link href="{{ url_for('static', filename='popup') }}">
-<h1 style="margin-left:399px;">Liste Reservation</h1>
-<div class="p-5">
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">Reservation ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th scope="col">ID type</th>
-        <th scope="col">ID num</th>
-        <th scope="col">Date Reseravtion</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    {% for reservation in reservations%}
+<h1 style="margin-left: 413px;margin-top: 56px;">Liste Reservation</h1>
+<div style="margin-top: 107px;">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Reservation ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th scope="col">ID type</th>
+            <th scope="col">ID num</th>
+            <th scope="col">Date Reseravtion</th>
 
-<!--    <a href="{{ url_for('back_office.listreservation')}}"><div>-->
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations%}
 
-    <tr >
-       <th scope="row">{{reservation.request_id}}</th>
-        <td>{{reservation.first_name}}</td>
-        <td>{{reservation.last_name}}</td>
-        <td>{{reservation.identification_type}}</td>
-        <td>{{reservation.identification_num}}</td>
-        <td>{{reservation.date_reservation}}</td>
+        <tr>
+            <th scope="row">{{reservation.request_id}}</th>
+            <td>{{reservation.first_name}}</td>
+            <td>{{reservation.last_name}}</td>
+            <td>{{reservation.identification_type}}</td>
+            <td>{{reservation.identification_num}}</td>
+            <td>{{reservation.date_reservation}}</td>
 
-<!--        <input class="{{reservation.request_id}}" id="request_id" value="{{reservation.request_id}}">-->
-        {% if code == '0000' %}
-        <td>
-            <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant)}}"> <button  value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust Reservation</button></a>
+            {% if code == '0000' %}
+            <td>
+                <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant)}}">
+                    <button value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust
+                        Reservation
+                    </button>
+                </a>
 
-        </td>
-        {% endif %}
+            </td>
+            {% endif %}
 
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
+
 {% endblock %}

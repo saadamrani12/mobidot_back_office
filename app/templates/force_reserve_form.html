@@ -1,8 +1,9 @@
 {% extends "base.html" %}{% include "navbar.html"%}{% block title %}Cashplus {% endblock %}{% block content%}
+<div class="mb-3 form-check"><h1 style="margin-left: 440px;margin-top: 52px;margin-bottom: -51px;border: black;border: groove;width: 328px;">Force Reservation</h1></div>
+
 <div style="margin-top: 88px;background-color: whitesmoke;">
  <div class="col-md-6 mx-auto" >
     <form action="{{ url_for('back_office.force_reservation')}}" method="POST" class="row g-3 ">
-        <div class="mb-3 form-check"><h1 style="margin-left: 122px;">Force Reservation</h1></div>
 <!--        <div class="mb-3 form-check" style="width: 50%;">-->
 <!--            <label class="form-label">Reservation ID</label>-->
             <input type="hidden"  readonly class="form-control"  name="reservation_request_id" value="{{request_id}}">
@@ -32,8 +33,8 @@
             <input type="number" required class="form-control" name="oc_new_solde" >
         </div>
         <div class="mb-3 form-check">
-        <button type="submit" class="btn btn-primary">Force Reservation</button>
-        <a href="{{ url_for('back_office.listreservation')}}"><button type="button" class="btn btn-warning" onclick="">Close</button></a></div>
+        <button type="submit" class="btn btn-primary" style="margin-left: 62px;width: 236px;">Force Reservation</button>
+        <a href="{{ url_for('back_office.listreservation')}}"><button style="width: 189px;" type="button" class="btn btn-warning" onclick="">Close</button></a></div>
     </form>
 </div>
     </div>

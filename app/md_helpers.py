@@ -2,12 +2,19 @@ import requests, json
 from flask import current_app as app
 from hashlib import sha256
 
+with open('./config.json') as config:
+    config_data = json.load(config)
+
 headers = {'content-type': 'application/json'}
+
 
 def check_admin(data_json):
     try:
         response = requests.request(url='http://127.0.0.1:5000/checkBackOfficeToken', headers=headers,
                                     method='POST', data=data_json)
+        # response = requests.request(url=config_data['check_token'], headers=headers,
+        #                             method='POST', data=data_json)
+
     except Exception as e:
         app.logger.info(e)
         return dict(code_time_out="0000")
@@ -17,7 +24,7 @@ def check_admin(data_json):
 
 def force_reserve(data_json):
     try:
-        # response = requests.request(url='http://35.158.69.207:5000/forceReservationOCSolde', headers=headers,
+        # response = requests.request(url=config_data['force_reserve'], headers=headers,
         #                             method='POST', data=data_json)
         response = requests.request(url='http://127.0.0.1:5000/forceReservationOCSolde', headers=headers,
                                     method='POST', data=data_json)

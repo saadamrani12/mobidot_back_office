@@ -115,7 +115,7 @@ def cancel_reservation():
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
                     return render_template('time_out.html', error=ams)
-            if "code_time_out" in ams:
+            if "code_time_out" in data_dict:
                 return render_template('time_out.html', error=data_dict)
         except Exception as e:
             app.logger.info(e)
@@ -157,7 +157,7 @@ def listreservation():
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
                                        request_id=str(request_id),
                                        password=password)
-                # login_user(user, remember=True)
+
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)

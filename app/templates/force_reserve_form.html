@@ -1,41 +1,51 @@
 {% extends "base.html" %}{% include "navbar.html"%}{% block title %}Cashplus {% endblock %}{% block content%}
-<div class="mb-3 form-check"><h1 style="margin-left: 440px;margin-top: 52px;margin-bottom: -51px;border: black;border: groove;width: 328px;">Force Reservation</h1></div>
+<div class="mb-3 form-check"><h1
+        style="margin-left: 440px;margin-top: 52px;margin-bottom: -51px;border: black;border: groove;width: 328px;">
+    Force Reservation</h1></div>
 
 <div style="margin-top: 88px;background-color: whitesmoke;">
- <div class="col-md-6 mx-auto" >
-    <form action="{{ url_for('back_office.force_reservation')}}" method="POST" class="row g-3 ">
-<!--        <div class="mb-3 form-check" style="width: 50%;">-->
-<!--            <label class="form-label">Reservation ID</label>-->
-            <input type="hidden"  readonly class="form-control"  name="reservation_request_id" value="{{request_id}}">
-<!--        </div>-->
-        <div class="mb-3 form-check" style="width: 50%;">
-            <label  class="form-label" >Last name</label>
-            <input type="text" readonly class="form-control"  value="{{last_name}}" >
-        </div>
-         <div class="mb-3 form-check" style="width: 50%;">
-            <label  class="form-label">First Name</label>
-            <input type="text" readonly  class="form-control"  value="{{first_name}}" >
-        </div>
-        <div class="mb-3 form-check" style="width: 50%;">
-            <label  class="form-label">Identification type</label>
-            <input type="text" readonly  class="form-control" value="{{type_id}}"  >
-        </div>
-         <div class="mb-3 form-check" style="width: 50%;">
-            <label  class="form-label">Identification number</label>
-            <input type="text" readonly  class="form-control" value="{{num_id}}" >
-        </div>
-        <div class="mb-3 form-check" style="width: 50%;" >
-            <label  class="form-label">OC Ticket Num </label><span style="color: #af5151;">*</span>
-            <input type="text" required class="form-control" name="oc_ticket_num" >
-        </div>
-         <div class="mb-3 form-check" style="width: 50%;">
-            <label  class="form-label">OC New Solde </label><span style="color: #af5151;">*</span>
-            <input type="number" required class="form-control" name="oc_new_solde" >
-        </div>
-        <div class="mb-3 form-check">
-        <button type="submit" class="btn btn-primary" style="margin-left: 62px;width: 236px;">Force Reservation</button>
-        <a href="{{ url_for('back_office.listreservation')}}"><button style="width: 189px;" type="button" class="btn btn-warning" onclick="">Close</button></a></div>
-    </form>
-</div>
+    <div class="col-md-6 mx-auto">
+        <form action="{{ url_for('back_office.force_reservation')}}" method="POST" class="row g-3 ">
+            <!--        <div class="mb-3 form-check" style="width: 50%;">-->
+            <!--            <label class="form-label">Reservation ID</label>-->
+            <input type="hidden" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
+            <!--        </div>-->
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">Last name</label>
+                <input type="text" readonly class="form-control" value="{{last_name}}">
+            </div>
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">First Name</label>
+                <input type="text" readonly class="form-control" value="{{first_name}}">
+            </div>
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">Identification type</label>
+                <input type="text" readonly class="form-control" value="{{type_id}}">
+            </div>
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">Identification number</label>
+                <input type="text" readonly class="form-control" value="{{num_id}}">
+            </div>
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">OC Ticket Num </label><span style="color: #af5151;">*</span>
+                <input type="text" required class="form-control" name="oc_ticket_num">
+            </div>
+            <div class="mb-3 form-check" style="width: 50%;">
+                <label class="form-label">OC New Solde </label><span style="color: #af5151;">*</span>
+                <input type="number" required class="form-control" name="oc_new_solde">
+            </div>
+            <div class="mb-3 form-check">
+                <button type="submit" class="btn btn-primary" style="margin-left: 170px;width: 316px;">Force
+                    Reservation
+                </button>
+            </div>
+            <div class="mb-3 form-check">
+                <a href="{{ url_for('back_office.listreservation')}}">
+                    <button style="width: 316px;margin-left: 170px;margin-top: -44px;" type="button" class="btn btn-warning" onclick="">
+                        Close
+                    </button>
+                </a></div>
+        </form>
     </div>
+</div>
 {% endblock %}

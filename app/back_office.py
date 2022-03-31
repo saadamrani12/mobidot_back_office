@@ -141,6 +141,7 @@ def listreservation():
         app_id = request.form.get('app_id')
         password = request.form.get('password')
         if not password or not app_id:
+            flash('Login Required', category='error')
             return render_template('login.html')
         lg_data = dict(access_id=app_id, password=password_hash(password))
         login_data = json.dumps(lg_data)

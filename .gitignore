@@ -4,3 +4,4 @@ config.json
 docker-compose.yml
 migrations/__pycache__/*
 app/__pycache__/*
+/__pycache__

@@ -3,9 +3,6 @@ from logging.config import dictConfig
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
-from flask_login import LoginManager
-from flask_mysqldb import MySQL
-import json
 
 dictConfig({
     'version': 1,
@@ -25,9 +22,6 @@ dictConfig({
 db = SQLAlchemy()
 session = Session()
 
-# with open('./config.json') as config:
-#     config_data = json.load(config)
-
 
 def create_app():
     app = Flask(__name__)
@@ -42,7 +36,6 @@ def create_app():
     app.config.update(SESSION_COOKIE_SECURE=True)
 
     db.init_app(app)
-    # app.session = Session(app)
     session.secret_key = 'super secret key'
 
     from app.back_office import back_office
@@ -50,8 +43,3 @@ def create_app():
     app.session = {}
 
     return app
-
-# def create_database(app):
-#     if not path.exists('app/' + DB_NAME):
-#         db.create_all(app=app)
-#         print('Created Database!')

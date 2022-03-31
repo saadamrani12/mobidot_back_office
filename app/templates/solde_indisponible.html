@@ -1,8 +1,9 @@
 {% extends "base.html"%} {% block title %}Back Office {% endblock %}{% include "navbar.html"%}
 {% block content %}
 
-<div class="mb-3 form-check"><h1
-        style="margin-left: 440px;margin-top: 52px;margin-bottom: -51px;border: black;border: groove;width: 328px;">
+<div class="mb-3 form-check">
+    <h1
+        style="margin-left: 440px;margin-top: 52px;margin-bottom: -51px;border: black;border: groove;width: 328px;background:#ececed;">
     Solde
     Indisponible</h1></div>
 <div style="background-color: whitesmoke;margin-top: 103px;">
@@ -36,12 +37,12 @@
             </div>
 
             <div class="mb-3 form-check">
-                <button type="submit" class="btn btn-primary" style="width: 316px;margin-left: 152px;">Cancel
+                <button type="submit" class="btn btn-primary" style="width: 418px;margin-left: 90px;">Cancel
                     reservation
                 </button>
                 <br>
                 <a href="{{ url_for('back_office.listreservation')}}">
-                    <button style="width: 316px;margin-left: 152px;margin-top: 7px;" type="button"
+                    <button style="width: 418px;margin-left: 90px;margin-top: 7px;" type="button"
                             class="btn btn-warning" onclick="">
                         Close
                     </button>

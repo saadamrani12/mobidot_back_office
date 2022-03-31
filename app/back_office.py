@@ -9,10 +9,6 @@ back_office = Blueprint('back_office', __name__)
 methods = ['GET', 'POST']
 
 
-# with open('./config.json') as config:
-#     config_data = json.load(config)
-
-
 @back_office.route('/', methods=methods)
 def auth_login():
     return render_template('login.html')
@@ -30,6 +26,7 @@ def logout():
     methods=methods)
 def force_reserve_form(request_id, first_name, last_name, num_id, type_id):
     if 'data' in session:
+        app.logger.info(session['data'])
         return render_template('force_reserve_form.html', request_id=request_id, first_name=first_name,
                                last_name=last_name, num_id=num_id, type_id=type_id)
     flash('You should be Logged in', category='error')
@@ -48,7 +45,7 @@ def force_reservation():
                     session.pop('data')
                 flash('Please go step by step', category='error')
                 return render_template('login.html')
-            app.logger.info(request_id)
+            app.logger.info(session['data'])
             data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                         reservation_request_id=request_id,
                         app_id=int(session['data']['app_id']), oc_ticket_num=oc_ticket_num,
@@ -63,11 +60,14 @@ def force_reservation():
                 data_json_manual = json.dumps(data)
                 ams = manual_reserve(data_json_manual)
                 if "code_time_out" not in ams:
+                    app.logger.info(ams)
                     flash(data_dict['message'], category="success")
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
+                    app.logger.info(ams)
                     return render_template('time_out.html')
             if "code_time_out" in data_dict:
+                app.logger.info(data_dict)
                 return render_template('time_out.html')
         except Exception as e:
             app.logger.info(e)
@@ -82,6 +82,7 @@ def force_reservation():
     methods=methods)
 def solde_indisponible_form(request_id, first_name, last_name, num_id, type_id):
     if 'data' in session:
+        app.logger.info(session['data'])
         return render_template('solde_indisponible.html', request_id=request_id, first_name=first_name,
                                last_name=last_name, num_id=num_id, type_id=type_id)
     flash('You should be Logged in', category='error')
@@ -105,11 +106,13 @@ def cancel_reservation():
 
             data_json = json.dumps(data)
             data_dict = cancel_reserve(data_json)
+            app.logger.info(data_dict)
             if "code_time_out" not in data_dict:
                 data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                             app_id=int(session['data']['app_id']))
                 data_json_manual = json.dumps(data)
                 ams = manual_reserve(data_json_manual)
+                app.logger.info(ams)
                 if "code_time_out" not in ams:
                     flash(data_dict['message'], category='success')
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
@@ -133,6 +136,8 @@ def listreservation():
                     app_id=int(session['data']['app_id']))
         data_json = json.dumps(data)
         ams = manual_reserve(data_json)
+        app.logger.info(ams)
+        app.logger.info(session)
         if "code_time_out" not in ams:
             return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
         if "code_time_out" in ams:
@@ -143,9 +148,10 @@ def listreservation():
         if not password or not app_id:
             flash('Login Required', category='error')
             return render_template('login.html')
-        lg_data = dict(access_id=app_id, password=password_hash(password))
+        lg_data = dict(access_id=int(app_id), password=password_hash(password))
         login_data = json.dumps(lg_data)
         check_dict = check_admin(login_data)
+        app.logger.info(check_dict)
         if "code_time_out" in check_dict:
             return render_template('time_out.html')
         if "code_time_out" not in check_dict:
@@ -162,6 +168,7 @@ def listreservation():
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)
+                app.logger.info(ams)
                 if "code_time_out" not in ams:
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
@@ -169,10 +176,11 @@ def listreservation():
 
 
 @back_office.route(
-    '/reservation_details/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>',
+    '/reservation_details?$id=<request_id>&$first_name=<first_name>&$last_name=<last_name>&$num_id=<num_id>&$type_id=<type_id>&$montant=<montant>',
     methods=methods)
 def reservation_details(request_id, first_name, last_name, num_id, type_id, montant):
     if 'data' in session:
+        app.logger.info(session['data'])
         return render_template('single_reservation.html', request_id=request_id, first_name=first_name,
                                last_name=last_name, num_id=num_id, type_id=type_id, montant=montant)
     flash('You should be Logged in', category='error')

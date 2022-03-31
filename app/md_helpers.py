@@ -10,10 +10,10 @@ headers = {'content-type': 'application/json'}
 
 def check_admin(data_json):
     try:
-        response = requests.request(url='http://127.0.0.1:5000/checkBackOfficeToken', headers=headers,
-                                    method='POST', data=data_json)
-        # response = requests.request(url=config_data['check_token'], headers=headers,
+        # response = requests.request(url='http://127.0.0.1:5000/checkBackOfficeToken', headers=headers,
         #                             method='POST', data=data_json)
+        response = requests.request(url=config_data['check_token'], headers=headers,
+                                    method='POST', data=data_json)
 
     except Exception as e:
         app.logger.info(e)
@@ -24,10 +24,10 @@ def check_admin(data_json):
 
 def force_reserve(data_json):
     try:
-        # response = requests.request(url=config_data['force_reserve'], headers=headers,
-        #                             method='POST', data=data_json)
-        response = requests.request(url='http://127.0.0.1:5000/forceReservationOCSolde', headers=headers,
+        response = requests.request(url=config_data['force_reserve'], headers=headers,
                                     method='POST', data=data_json)
+        # response = requests.request(url='http://127.0.0.1:5000/forceReservationOCSolde', headers=headers,
+        #                             method='POST', data=data_json)
     except Exception as e:
         app.logger.error(e)
         return dict(code_time_out="0000")
@@ -38,10 +38,10 @@ def force_reserve(data_json):
 
 def manual_reserve(data_json):
     try:
-        response = requests.request(url='http://127.0.0.1:5000/manualReserve', headers=headers, method='POST',
-                                    data=data_json)
-        # response = requests.request(url=config_data['manual_reserve'], headers=headers, method='POST',
+        # response = requests.request(url='http://127.0.0.1:5000/manualReserve', headers=headers, method='POST',
         #                             data=data_json)
+        response = requests.request(url=config_data['manual_reserve'], headers=headers, method='POST',
+                                    data=data_json)
     except Exception as e:
         app.logger.error(e)
         return dict(code_time_out="0000")
@@ -52,10 +52,10 @@ def manual_reserve(data_json):
 
 def cancel_reserve(data_json):
     try:
-        response = requests.request(url='http://127.0.0.1:5000/soldeOCindisponible', headers=headers,
-                                    method='POST', data=data_json)
-        # response = requests.request(url=config_data['solde_indisponible'], headers=headers,
+        # response = requests.request(url='http://127.0.0.1:5000/soldeOCindisponible', headers=headers,
         #                             method='POST', data=data_json)
+        response = requests.request(url=config_data['solde_indisponible'], headers=headers,
+                                    method='POST', data=data_json)
     except Exception as e:
         app.logger.error(e)
         return dict(code_time_out="0000")

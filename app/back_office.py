@@ -176,7 +176,7 @@ def listreservation():
 
 
 @back_office.route(
-    '/reservation_details?$id=<request_id>&$first_name=<first_name>&$last_name=<last_name>&$num_id=<num_id>&$type_id=<type_id>&$montant=<montant>',
+    '/reservation_details?id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>',
     methods=methods)
 def reservation_details(request_id, first_name, last_name, num_id, type_id, montant):
     if 'data' in session:

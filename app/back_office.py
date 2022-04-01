@@ -1,9 +1,9 @@
 import random, json
-from flask import render_template, Blueprint, request, url_for, current_app as app, session, \
-    redirect, flash
+from flask import render_template, Blueprint, request, url_for, current_app as app, \
+    redirect, flash,session
 from hashlib import sha256
 from app.md_helpers import manual_reserve, force_reserve, cancel_reserve, password_hash, check_admin
-
+# from . import session
 back_office = Blueprint('back_office', __name__)
 
 methods = ['GET', 'POST']
@@ -164,7 +164,7 @@ def listreservation():
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
                                        request_id=str(request_id),
                                        password=password)
-
+                app.logger.info(session)
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)

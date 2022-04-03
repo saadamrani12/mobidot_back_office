@@ -1,28 +1,24 @@
 {% extends "base.html" %}
 
 {% block content%}
+<link href="{{ url_for('static', filename='popup.css') }}" rel="stylesheet">
 <div class="p-4">
-<form action="{{ url_for(('back_office.listreservation')) }}" method="POST">
-    <div class="col-md-6 mx-auto" style="padding: 100px;border: wheat;border-style: double;">
-        <div class="mb-3 " style="margin-left: 36px;">
-            <h1 style="color: #165a78; ">Mobidot Back Office </h1>
-        </div>
-        <div class="mb-3 " style="margin-left: 105px;margin-top: -16px;margin-bottom: -45px;">
-            <img src="{{url_for('static' , filename='cp_logo.jpeg')}}">
-        </div>
-        <div class="mb-3" >
-            <label  class="form-label font-monospace mx-auto" style="margin-top: 61px;">Identification</label>
-            <input type="text" name="app_id" required class="form-control" id="app_id">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label font-monospace mx-auto">Password</label>
-            <input type="password" name="password" required class="form-control" id="password">
+        <div class="wrapper">
+            <div class="logo"><img
+                    src="{{url_for('static' , filename='cp_logo.png')}}"
+                    alt=""></div>
+            <div class="text-center mt-4 name">Mobidot</div>
+            <form class="p-3 mt-3" action="{{ url_for(('back_office.listreservation')) }}" method="POST">
+                <div class="form-field d-flex align-items-center"><span class="far fa-user"></span> <input type="text"
+                                                                                                           name="app_id"
+                                                                                                           id="userName"
+                                                                                                           placeholder="Username">
+                </div>
+                <div class="form-field d-flex align-items-center"><span class="fas fa-key"></span> <input
+                        type="password" name="password" id="pwd" placeholder="Password"></div>
+                <button class="btn mt-3" type="submit">Login</button>
+            </form></div>
 
-        </div>
-
-        <button type="submit" style="margin-left: 159px;"  class="btn btn-primary">Access</button>
-
-    </div>
-</form>
-    </div>
+<!--    </form>-->
+</div>
 {% endblock %}

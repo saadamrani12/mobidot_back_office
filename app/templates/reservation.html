@@ -24,12 +24,13 @@
   Poppins,sans-serif
   margin-left: -5%;
 }
+
 </style>
 <div id="container">
-<h1 >Liste Reservation</h1>
+    <h1>Liste Reservation</h1>
 </div>
-    <div style="margin-top: 107px;">
-    <table class="table table-hover">
+<div >
+    <table class="table table-hover table-bordered">
         <thead>
         <tr>
             <th scope="col">Reservation ID</th>
@@ -38,7 +39,7 @@
             <th scope="col">ID type</th>
             <th scope="col">ID num</th>
             <th scope="col">Date Reseravtion</th>
-
+            <th scope="col" style="text-align: center;">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +54,7 @@
             <td>{{reservation.date_reservation}}</td>
 
             {% if code == '0000' %}
-            <td>
+            <td style="text-align: center;">
                 <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant)}}">
                     <button value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust
                         Reservation

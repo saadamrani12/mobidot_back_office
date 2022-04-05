@@ -12,24 +12,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<link href="{{ url_for('static', filename='popup') }}">
-<style>
-    #container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 3%;
-  margin-top: 6%;
-  Poppins,sans-serif
-  margin-left: -5%;
-}
+<link href="{{ url_for('static', filename='reservation.css') }}" rel="stylesheet">
 
-</style>
 <div id="container">
     <h1>Liste Reservation</h1>
 </div>
-<div >
+<div>
     <table class="table table-hover table-bordered">
         <thead>
         <tr>
@@ -55,7 +43,7 @@
 
             {% if code == '0000' %}
             <td style="text-align: center;">
-                <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant)}}">
+                <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant,dotation_code=reservation.dotation_code,dotation_libelle=reservation.dotation_libelle)}}">
                     <button value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust
                         Reservation
                     </button>

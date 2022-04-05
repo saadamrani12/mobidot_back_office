@@ -1,18 +1,6 @@
 {% extends "base.html"%} {% block title %}Back Office {% endblock %}{% include "navbar.html"%}
 {% block content %}
-<style>
-    #container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 3%;
-
-  Poppins,sans-serif
-}
-
-</style>
-
+<link href="{{ url_for('static' ,filename='solde_indisponible.css')}}" rel="stylesheet">
 <div id="container">
     <h1>
         Solde

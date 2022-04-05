@@ -1,23 +1,6 @@
 {% extends "base.html" %}{% include "navbar.html"%}{% block title %}Cashplus {% endblock %}{% block content%}
-<style>
-    #container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 3%;
+<link href="{{ url_for('static', filename='force.css') }}" rel="stylesheet">
 
-  Poppins,sans-serif
-}
-   #button {
-  display: flex;
-  flex-direction: row;
-
-
-
-}
-
-</style>
 <div id="container">
     <h1>
         Force Reservation</h1>

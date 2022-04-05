@@ -1,0 +1,10 @@
+  #container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 3%;
+  margin-top: 6%;
+  Poppins,sans-serif
+  margin-left: -5%;
+}

@@ -22,16 +22,6 @@ def logout():
     return redirect(url_for('back_office.auth_login'))
 
 
-@back_office.route(
-    '/force_form/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>',
-    methods=methods)
-@sessionChecker()
-def force_reserve_form(request_id, first_name, last_name, num_id, type_id):
-    app.logger.info(session['data'])
-    return render_template('force_reserve_form.html', request_id=request_id, first_name=first_name,
-                           last_name=last_name, num_id=num_id, type_id=type_id)
-
-
 @back_office.route('/force', methods=methods)
 @sessionChecker()
 def force_reservation():
@@ -71,16 +61,6 @@ def force_reservation():
     except Exception as e:
         app.logger.info(e)
         return render_template('time_out.html')
-
-
-@back_office.route(
-    '/solde_ind/id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>',
-    methods=methods)
-@sessionChecker()
-def solde_indisponible_form(request_id, first_name, last_name, num_id, type_id):
-    app.logger.info(session['data'])
-    return render_template('solde_indisponible.html', request_id=request_id, first_name=first_name,
-                           last_name=last_name, num_id=num_id, type_id=type_id)
 
 
 @back_office.route('/soldeIndisponible', methods=methods)

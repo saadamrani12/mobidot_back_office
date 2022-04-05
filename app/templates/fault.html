@@ -1,7 +1,0 @@
-{% extends "base.html" %}{% block content %}
-<div class="col-md-6 mx-auto">
-<p> Code : {{error.code}}</p>
-<p> Message :{{error.message}}</p>
-    <a href="{{ url_for('back_office.create_session')}}"><button type="submit">Reservations</button></a>
-</div>
-{% endblock %}

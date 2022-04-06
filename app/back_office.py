@@ -29,11 +29,11 @@ def force_reservation():
         request_id = request.form.get('reservation_request_id')
         oc_ticket_num = request.form.get('oc_ticket_num')
         oc_new_solde = request.form.get('oc_new_solde')
-        # if not oc_ticket_num or not oc_new_solde:
-        #     if 'data' in session:
-        #         session.pop('data')
-        #     flash('Please go step by step', category='error')
-        #     return render_template('login.html')
+        if not oc_ticket_num or not oc_new_solde:
+            if 'data' in session:
+                session.pop('data')
+            flash('Please go step by step', category='error')
+            return render_template('login.html')
         app.logger.info(session['data'])
         data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                     reservation_request_id=request_id,
@@ -99,12 +99,21 @@ def cancel_reservation():
         return render_template('time_out.html')
 
 
+@back_office.route(
+    '/reservation_details?id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>&dotation_code=<dotation_code>&dotation_libelle=<dotation_libelle>',
+    methods=methods)
+@sessionChecker()
+def reservation_details(request_id, first_name, last_name, num_id, type_id, montant, dotation_code, dotation_libelle):
+    app.logger.info(session['data'])
+    return render_template('single_reservation.html', request_id=request_id, first_name=first_name, last_name=last_name,
+                           num_id=num_id, type_id=type_id, montant=montant, dotation_code=dotation_code,
+                           dotation_libelle=dotation_libelle)
+
+
 @back_office.route('/listreservation', methods=methods)
 def listreservation():
     if 'data' in session:
-        request_id = str(random.randint(99, 10000))
-        access_token = sha256((password_hash(session['data']['password']) + request_id).encode('utf-8')).hexdigest()
-        data = dict(access_token=access_token.upper(), request_id=str(request_id),
+        data = dict(access_token=session['data']['access_token'], request_id=session['data']['request_id'],
                     app_id=int(session['data']['app_id']))
         data_json = json.dumps(data)
         ams = manual_reserve(data_json)
@@ -136,7 +145,6 @@ def listreservation():
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
                                        request_id=str(request_id),
                                        password=password)
-                app.logger.info(session)
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)
@@ -145,14 +153,3 @@ def listreservation():
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
                     return render_template('time_out.html')
-
-
-@back_office.route(
-    '/reservation_details?id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>&dotation_code=<dotation_code>&dotation_libelle=<dotation_libelle>',
-    methods=methods)
-@sessionChecker()
-def reservation_details(request_id, first_name, last_name, num_id, type_id, montant, dotation_code, dotation_libelle):
-    app.logger.info(session['data'])
-    return render_template('single_reservation.html', request_id=request_id, first_name=first_name, last_name=last_name,
-                           num_id=num_id, type_id=type_id, montant=montant, dotation_code=dotation_code,
-                           dotation_libelle=dotation_libelle)

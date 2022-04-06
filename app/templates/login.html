@@ -8,7 +8,8 @@
                     src="{{url_for('static' , filename='cp_logo.png')}}"
                     alt=""></div>
             <div class="text-center mt-4 name">Mobidot</div>
-            <form class="p-3 mt-3" action="{{ url_for(('back_office.listreservation')) }}" method="POST">
+             <p id="span" class="text-center mt-4 name"  style="color:#e68585;display:none;">Tout les champs sont requis</p>
+            <form class="p-3 mt-3" action="{{ url_for(('back_office.listreservation')) }}" method="POST"  id="form">
                 <div class="form-field d-flex align-items-center"><span class="far fa-user"></span> <input type="text"
                                                                                                            name="app_id"
                                                                                                            id="userName"
@@ -16,9 +17,28 @@
                 </div>
                 <div class="form-field d-flex align-items-center"><span class="fas fa-key"></span> <input
                         type="password" name="password" id="pwd" placeholder="Password"></div>
-                <button class="btn mt-3" type="submit">Login</button>
+                <button class="btn mt-3" type="submit">Accéder</button>
             </form></div>
 
 <!--    </form>-->
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $( "form" ).on( "submit", function() {
+
+        var has_empty = false;
+
+        $(this).find( 'input[type!="hidden"]' ).each(function () {
+
+        if ( ! $(this).val() ) {
+            has_empty = true;
+
+            }
+   });
+
+   if ( has_empty ) { $('#span').css('display','block') ;return false; }
+});
+
+</script>
+
 {% endblock %}

@@ -44,7 +44,7 @@
             {% if code == '0000' %}
             <td style="text-align: center;">
                 <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant,dotation_code=reservation.dotation_code,dotation_libelle=reservation.dotation_libelle)}}">
-                    <button value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Adjust
+                    <button value="{{reservation.request_id}}" class="btn btn-primary" type="submit">Régler
                         Reservation
                     </button>
                 </a>

@@ -44,14 +44,22 @@
 
         <div class="mb-3 form-check" id="oc_solde" style="width: 50%;display:none;">
             <label class="form-label">OC New Solde </label><span style="color: #af5151;">*</span>
-            <input type="number" step="0.01" required class="form-control" name="oc_new_solde">
+            <input type="number" step="0.01" required onchange="changeHandler(this)"  id="o_s" class="form-control"
+                   name="oc_new_solde">
         </div>
         <div class="mb-3 form-check" id="ticket_num" style="width: 50%;display:none;">
             <label class="form-label">OC Ticket Num </label><span style="color: #af5151;">*</span>
-            <input type="hidden" required class="form-control" id="inp_ticket" name="oc_ticket_num">
+            <input type="hidden" required class="form-control" maxlength="20" pattern="^[A-Z]+$"
+                   id="inp_ticket"
+                   name="oc_ticket_num">
+             <span id="span_ticket"
+              style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;">veuillez inserer un numero ticket valide </span>
+
         </div>
 
-        <button type="submit" class="btn btn-success" style="display:none;width: 40%;margin-left: 29%;" id="valider">
+        <span id="spn"
+              style="display:none;color: #e93737;width: 24%;margin-left: 36%;border-bottom: black;border: dashed;">veuillez remplir les champs * requis </span>
+        <button type="submit" class="btn btn-success" style="display:none;width: 18%;margin-left: 39%;" id="valider">
             valider
         </button>
 
@@ -85,7 +93,12 @@
 
     $(document).ready(function() {
     $("#force").click(function() {
+         $('#span_ticket').css({'display':'none'});
+          $("#inp_ticket").val("")
+          $("#o_s").val("")
 
+
+         $('#spn').css({'display':'none'});
         if($("#ticket_num").is(":visible") && $("#oc_solde").is(":visible") ){
 
             $('#inp_ticket').attr('type', 'hidden');
@@ -108,6 +121,10 @@
   })
    $(document).ready(function() {
     $("#solde_ind").click(function() {
+        $("#inp_ticket").val("")
+        $("#o_s").val("")
+        $('#span_ticket').css({'display':'none'});
+        $('#spn').css({'display':'none'});
         if($("#ticket_num").is(":visible")){
              $('#inp_ticket').attr('type', 'hidden');
             $("#ticket_num").slideToggle("slow",);
@@ -122,14 +139,12 @@
 
 $(document).ready(function() {
     $("#valider").click(function() {
-        if($("#ticket_num").is(":visible")){
 
-            if($("#ticket_num").is("empty")){
-                console.log('test');
-                alert('Text-field is empty.');
-            }
+            if($('#ticket_num').css({'border-color':'#e68585'})){
+                $('#ticket_num').css({'border-color':'green'});
+            };
 
-        };
+
     });
   })
 
@@ -142,16 +157,44 @@ $(document).ready(function() {
       if ( ! $(this).val() ) {
             has_empty = true;
 
-            $(this).css({'border-color':'#e68585','animation': '2s ',});
+<!--            $(this).css({'border-color':'#e68585'});-->
 
             }
 
    });
 
+   if ( has_empty ) { $('#spn').css({'display':'block'}); return false; }
+    var ticket = $('#inp_ticket').val();
+    console.log(ticket)
+     if($("#ticket_num").is(":visible")){
+        if (!ticket.match(/^[A-Z0-9]+$/) ) {
+        $('#span_ticket').css({'display':'block'});
 
-   if ( has_empty ) { return false; }
+        return false;
+        }
+    }
+
+
+
 });
 
+
+function matchTicket(val){
+    reg = '^[A-Z0-9_-]*$'
+    if ((val.value).test(reg)){
+     val.value = "";
+    }
+}
+
+
+
+function changeHandler(val)
+  {
+    if (Number(val.value) > 10000)
+    {
+      val.value = 10000
+    }
+  }
 
 
 

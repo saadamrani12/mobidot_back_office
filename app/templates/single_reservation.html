@@ -141,11 +141,17 @@ $(document).ready(function() {
 
       if ( ! $(this).val() ) {
             has_empty = true;
+
+            $(this).css({'border-color':'#e68585','animation': '2s ',});
+
             }
+
    });
 
-   if ( has_empty ) { alert('svp veuillez remplir les champs obliqatoire'); return false; }
+
+   if ( has_empty ) { return false; }
 });
+
 
 
 

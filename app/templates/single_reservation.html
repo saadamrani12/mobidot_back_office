@@ -13,53 +13,56 @@
         <input type="hidden" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
 
         <div class="mb-3 form-check" style="width: 50%;">
-            <label class="form-label">Last name</label>
+            <label class="form-label">Nom</label>
             <input type="text" readonly class="form-control" value="{{last_name}}">
         </div>
         <br>
         <div class="mb-3 form-check" style="width: 50%;">
-            <label class="form-label">First Name</label>
+            <label class="form-label">Prenom</label>
             <input type="text" readonly class="form-control" value="{{first_name}}">
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
-            <label class="form-label">Identification type</label>
+            <label class="form-label">Type identification </label>
             <input type="text" readonly class="form-control" value="{{type_id}}">
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
-            <label class="form-label">Identification number</label>
+            <label class="form-label">Numero identification </label>
             <input type="text" readonly class="form-control" value="{{num_id}}">
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
             <label for="validation" class="form-label"
-                   style="">Dotation code</label>
+                   style="">Code dotation</label>
             <input type="text" class="form-control" id="validation"
                    value="{{dotation_code}}" readonly>
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
             <label for="validationCusto" class="form-label"
-                   style="">Dotation libelle</label>
+                   style="">Libelle dotation</label>
             <input type="text" class="form-control" style="" id="validationCusto"
                    value="{{dotation_libelle}}" readonly>
         </div>
 
         <div class="mb-3 form-check" id="oc_solde" style="width: 50%;display:none;">
-            <label class="form-label">OC New Solde </label><span style="color: #af5151;">*</span>
-            <input type="number" step="0.01" required onchange="changeHandler(this)"  id="o_s" class="form-control"
+            <label class="form-label">Nouveau Solde OC</label><span style="color: #af5151;">*</span>
+            <input type="number" step="0.01" required onchange="" oninput="changeHandler(this)" id="inp_solde" class="form-control"
                    name="oc_new_solde">
+                        <span id="span_solde" class="form-control is-invalid"
+                  style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;">solde limite 100000 </span>
+
         </div>
         <div class="mb-3 form-check" id="ticket_num" style="width: 50%;display:none;">
-            <label class="form-label">OC Ticket Num </label><span style="color: #af5151;">*</span>
-            <input type="hidden" required class="form-control" maxlength="20" pattern="^[A-Z]+$"
+            <label class="form-label">Numero Ticket OC  </label><span style="color: #af5151;">*</span>
+            <input type="hidden" required class="form-control" maxlength="20" onchange="" oninput="ticketHandler(this)"
                    id="inp_ticket"
                    name="oc_ticket_num">
-             <span id="span_ticket"
-              style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;">veuillez inserer un numero ticket valide </span>
+            <span id="span_ticket" class="form-control is-invalid"
+                  style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;">veuillez inserer un numero ticket valide </span>
 
         </div>
 
         <span id="spn"
-              style="display:none;color: #e93737;width: 24%;margin-left: 36%;border-bottom: black;border: dashed;">veuillez remplir les champs * requis </span>
-        <button type="submit" class="btn btn-success" style="display:none;width: 18%;margin-left: 39%;" id="valider">
+              style="display:none;color: #e93737;width: 23%;margin-left: 39%;border-color: black;border: solid;">veuillez remplir les champs * requis </span>
+        <button type="submit" class="btn btn-success" style="display:none;width: 14%;margin-left: 44%;" id="valider">
             valider
         </button>
 
@@ -84,119 +87,179 @@
     </button>
     <!--    </a>-->
     <a href="{{ url_for('back_office.listreservation',)}}">
-        <button class="btn btn-warning" style="width: 109%;height: 101%;margin-left: 2px;">fermer</button>
+        <button class="btn btn-warning" style="width: 109%;height: 101%;margin-left: 2px;">Retour</button>
     </a>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
-
-    $(document).ready(function() {
+$(document).ready(function() {
     $("#force").click(function() {
-         $('#span_ticket').css({'display':'none'});
-          $("#inp_ticket").val("")
-          $("#o_s").val("")
 
+        $('#span_ticket').css({
+            'display': 'none'
+        });
+        $('#span_solde').css({
+            'display': 'none'
+        });
 
-         $('#spn').css({'display':'none'});
-        if($("#ticket_num").is(":visible") && $("#oc_solde").is(":visible") ){
+        $("#inp_ticket").css({
+            'border-color': ''
+        });
+        $("#inp_solde").css({
+            'border-color': ''
+        });
+
+        $("#inp_ticket").val("");
+        $("#inp_solde").val("");
+
+        $('#spn').css({
+            'display': 'none'
+        });
+        if ($("#ticket_num").is(":visible") && $("#oc_solde").is(":visible")) {
 
             $('#inp_ticket').attr('type', 'hidden');
-               $("#ticket_num").slideToggle("slow","linear");
-                $("#oc_solde").slideToggle("slow","linear");
-                $("#valider").slideToggle("slow",);
-            }else if($("#oc_solde").is(":visible")){
+            $("#ticket_num").slideToggle("slow", "linear");
+            $("#oc_solde").slideToggle("slow", "linear");
+            $("#valider").slideToggle("slow", );
+        } else if ($("#oc_solde").is(":visible")) {
             $('#inp_ticket').attr('type', 'text');
-            $("#ticket_num").slideToggle("slow",);
-            $('#form').attr('action', '{{ url_for('back_office.force_reservation')}}');
+            $("#ticket_num").slideToggle("slow", );
+            $('#form').attr('action', '{{ url_for("back_office.force_reservation")}}');
 
-            } else{
+        } else {
             $('#inp_ticket').attr('type', 'text');
-            $("#ticket_num").slideToggle("slow","linear");
-            $("#oc_solde").slideToggle("slow","linear");
-             $('#form').attr('action', '{{ url_for('back_office.force_reservation')}}');
-            $("#valider").slideToggle("slow",);
-       };
+            $("#ticket_num").slideToggle("slow", "linear");
+            $("#oc_solde").slideToggle("slow", "linear");
+            $('#form').attr('action', '{{ url_for("back_office.force_reservation")}}');
+            $("#valider").slideToggle("slow", );
+        }
+        ;
     });
-  })
-   $(document).ready(function() {
+})
+$(document).ready(function() {
     $("#solde_ind").click(function() {
-        $("#inp_ticket").val("")
-        $("#o_s").val("")
-        $('#span_ticket').css({'display':'none'});
-        $('#spn').css({'display':'none'});
-        if($("#ticket_num").is(":visible")){
-             $('#inp_ticket').attr('type', 'hidden');
-            $("#ticket_num").slideToggle("slow",);
-              $('#form').attr('action', '{{ url_for('back_office.cancel_reservation')}}');
-            } else{
-       $("#oc_solde").slideToggle("slow","linear");
-      $('#form').attr('action', '{{ url_for('back_office.cancel_reservation')}}');
-       $("#valider").slideToggle("slow",);
-        };
+        $('#span_solde').css({
+            'display': 'none'
+        });
+
+        $("#inp_ticket").css({
+            'border-color': ''
+        });
+        $("#inp_solde").css({
+            'border-color': ''
+        });
+
+        $("#inp_ticket").val("");
+        $("#inp_solde").val("");
+        $('#span_ticket').css({
+            'display': 'none'
+        });
+        $('#spn').css({
+            'display': 'none'
+        });
+        if ($("#ticket_num").is(":visible")) {
+            $('#inp_ticket').attr('type', 'hidden');
+            $("#ticket_num").slideToggle("slow", );
+            $('#form').attr('action', '{{ url_for("back_office.cancel_reservation")}}');
+        } else {
+            $("#oc_solde").slideToggle("slow", "linear");
+            $('#form').attr('action', '{{ url_for("back_office.cancel_reservation")}}');
+            $("#valider").slideToggle("slow", );
+        }
+        ;
     });
-  })
+})
 
 $(document).ready(function() {
     $("#valider").click(function() {
+    
+        if ($('#inp_ticket').is(':empty')){
+        $('#span_ticket').css('display','none')
+        }
+        
+        if ($('#inp_ticket').is(':empty')){
+        $('#span_ticket').css('display','none')
+        }
 
-            if($('#ticket_num').css({'border-color':'#e68585'})){
-                $('#ticket_num').css({'border-color':'green'});
-            };
-
+        if ($('#ticket_num').css({
+            'border-color': '#e68585'
+        })) {
+            $('#ticket_num').css({
+                'border-color': 'green'
+            });
+        }
+        ;
 
     });
-  })
+})
 
- $( "form" ).on( "submit", function() {
+$("form").on("submit", function() {
 
-   var has_empty = false;
+    var has_empty = false;
 
-   $(this).find( 'input[type!="hidden"]' ).each(function () {
+    $(this).find('input[type!="hidden"]').each(function() {
 
-      if ( ! $(this).val() ) {
+        if (!$(this).val()) {
             has_empty = true;
 
-<!--            $(this).css({'border-color':'#e68585'});-->
+            $(this).css({
+                'border-color': '#e68585'
+            });
+            $(this).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 
-            }
+        }
 
-   });
+    });
 
-   if ( has_empty ) { $('#spn').css({'display':'block'}); return false; }
+    if (has_empty) {
+        return false;
+    }
     var ticket = $('#inp_ticket').val();
     console.log(ticket)
-     if($("#ticket_num").is(":visible")){
-        if (!ticket.match(/^[A-Z0-9]+$/) ) {
-        $('#span_ticket').css({'display':'block'});
+    if ($("#ticket_num").is(":visible")) {
+        if (!ticket.match(/^[A-Z0-9]+$/)) {
+            $('#span_ticket').css({
+                'display': 'block'
+            });
 
-        return false;
+            return false;
         }
     }
 
-
-
 });
 
-
-function matchTicket(val){
-    reg = '^[A-Z0-9_-]*$'
-    if ((val.value).test(reg)){
-     val.value = "";
+function changeHandler(val) {
+    if (Number(val.value) > 100000) {
+        val.value = 100000
+        $('#span_solde').css({
+            'display': 'block'
+        });
+    }
+    else if (val.value.length == 0) {
+     $('#span_solde').css({
+            'display': 'none'
+        });
+    }else if (val.value.length > 0) {
+     $('#inp_solde').css({
+            'border-color': ''
+        });
     }
 }
 
+function ticketHandler(val) {
+    if (val.value.length == 0) {
 
-
-function changeHandler(val)
-  {
-    if (Number(val.value) > 10000)
-    {
-      val.value = 10000
+        $('#span_ticket').css({
+            'display': 'none'
+        });
+    }else if (val.value.length > 0) {
+     $('#inp_ticket').css({
+            'border-color': ''
+        });
     }
-  }
-
-
+}
 
 
 </script>

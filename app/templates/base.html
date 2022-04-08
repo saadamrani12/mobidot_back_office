@@ -13,9 +13,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 
     <title>{% block title %}Cashplus{% endblock %}</title>
+    <link rel = "icon" href ="{{url_for('static' , filename='cp_logo.png')}}"
+        type = "image/x-icon">
 </head>
 <body>
-
+ {% block nav %} {% endblock %}
 <div class="container">
     <div class="row">
 

@@ -1,6 +1,6 @@
-{% extends "base.html"%}  {% include "navbar.html"%}
+{% extends "base.html"%} {% block title %}Réservation{% endblock %}
 
-
+{% block nav %}{% include "navbar.html"%} {% endblock %}
 {% block content %}
 <link href="{{ url_for('static', filename='details.css') }}" rel="stylesheet">
 

@@ -41,22 +41,20 @@ def force_reservation():
                     oc_new_solde=float(oc_new_solde))
 
         data_json = json.dumps(data)
-
         data_dict = force_reserve(data_json)
+        app.logger.info(data_dict)
         if "code_time_out" not in data_dict:
             data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                         app_id=int(session['data']['app_id']))
             data_json_manual = json.dumps(data)
             ams = manual_reserve(data_json_manual)
+            app.logger.info(ams)
             if "code_time_out" not in ams:
-                app.logger.info(ams)
                 flash(data_dict['message'], category="success")
                 return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
             if "code_time_out" in ams:
-                app.logger.info(ams)
                 return render_template('time_out.html')
         if "code_time_out" in data_dict:
-            app.logger.info(data_dict)
             return render_template('time_out.html')
     except Exception as e:
         app.logger.info(e)
@@ -143,8 +141,7 @@ def listreservation():
                 request_id = str(random.randint(99, 10000))
                 access_token = sha256((password_hash(password) + request_id).encode('utf-8')).hexdigest()
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
-                                       request_id=str(request_id),
-                                       password=password)
+                                       request_id=str(request_id),)
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)

@@ -210,7 +210,7 @@ $("form").on("submit", function() {
             $(this).css({
                 'border-color': '#e68585'
             });
-            $(this).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+            $(this).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 
         }
 
@@ -281,7 +281,7 @@ function ticketHandler(val) {
                 'display': 'block'
             });
              $('#inp_ticket').css({
-            'border-color': ''
+            'border-color': '#e68585'
             });
 
             return false;
@@ -289,15 +289,14 @@ function ticketHandler(val) {
             $('#span_ticket').css({
                 'display': 'none'
             });
+            $('#inp_ticket').css({
+            'border-color': ''
+            });
 
             return false;
       }
     }
 }
-
-
-
-
 
 
 

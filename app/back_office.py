@@ -150,3 +150,4 @@ def listreservation():
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
                     return render_template('time_out.html')
+

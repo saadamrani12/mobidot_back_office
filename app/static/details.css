@@ -3,7 +3,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  Poppins,sans-serif
+  font-family: Poppins;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
    #button {
   display: flex;

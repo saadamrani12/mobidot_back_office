@@ -17,12 +17,16 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('back_office.listreservation')}}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('back_office.listreservation')}}">Accueil</a>
 
                 </li>
             </ul>
 
-                <a href="{{ url_for('back_office.logout')}}"><button class="btn btn-outline-success" type="submit">Déconnexion</button></a>
+<!--                <a href="{{ url_for('back_office.logout')}}">-->
+            <form action="{{ url_for('back_office.logout')}}" method="get">
+                    <button class="btn btn-outline-success" type="submit">Déconnexion</button>
+<!--                </a>-->
+                </form>
         </div>
     </div>
 </nav>

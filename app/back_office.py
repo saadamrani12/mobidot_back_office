@@ -2,7 +2,7 @@ import random, json
 from flask import render_template, Blueprint, request, url_for, current_app as app, \
     redirect, flash, session
 from hashlib import sha256
-from app.md_helpers import manual_reserve, force_reserve, cancel_reserve, password_hash, check_admin
+from app.md_helpers import manual_reserve, force_reserve, cancel_reserve, password_hash, check_admin, redirect_url
 from app.sessionChecker import sessionChecker
 
 back_office = Blueprint('back_office', __name__)
@@ -97,12 +97,20 @@ def cancel_reservation():
         return render_template('time_out.html')
 
 
-@back_office.route(
-    '/reservation_details?id=<request_id>&first_name=<first_name>&last_name=<last_name>&num_id=<num_id>&type_id=<type_id>&montant=<montant>&dotation_code=<dotation_code>&dotation_libelle=<dotation_libelle>',
-    methods=methods)
+@back_office.route('/reservation_details', methods=methods)
 @sessionChecker()
-def reservation_details(request_id, first_name, last_name, num_id, type_id, montant, dotation_code, dotation_libelle):
+def reservation_details():
     app.logger.info(session['data'])
+    if request.method != 'POST':
+        return redirect(redirect_url())
+    request_id = request.form.get('request_id')
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    num_id = request.form.get('num_id')
+    type_id = request.form.get('type_id')
+    montant = request.form.get('montant')
+    dotation_code = request.form.get('dotation_code')
+    dotation_libelle = request.form.get('dotation_libelle')
     return render_template('single_reservation.html', request_id=request_id, first_name=first_name, last_name=last_name,
                            num_id=num_id, type_id=type_id, montant=montant, dotation_code=dotation_code,
                            dotation_libelle=dotation_libelle)
@@ -141,7 +149,7 @@ def listreservation():
                 request_id = str(random.randint(99, 10000))
                 access_token = sha256((password_hash(password) + request_id).encode('utf-8')).hexdigest()
                 session['data'] = dict(app_id=int(app_id), access_token=access_token.upper(),
-                                       request_id=str(request_id),)
+                                       request_id=str(request_id), )
                 data = dict(access_token=access_token.upper(), request_id=str(request_id), app_id=int(app_id))
                 data_json = json.dumps(data)
                 ams = manual_reserve(data_json)
@@ -150,4 +158,3 @@ def listreservation():
                     return render_template('reservation.html', code=ams['code'], reservations=ams['reservation'], )
                 if "code_time_out" in ams:
                     return render_template('time_out.html')
-

@@ -5,11 +5,11 @@
 <link href="{{ url_for('static', filename='details.css') }}" rel="stylesheet">
 
 <div id="container">
-    <h1> Demmande Reservation</h1></div>
+    <h1 id="title">Demmande Reservation </h1></div>
 {% endblock %}
 {% block details %}
 <div id="container_1" class="col-12">
-    <form id="form" name="form" class="row g-3 " novalidate action="" method="post">
+    <form id="form" name="form" class="row g-3 " novalidate action="" method="post" autocomplete="off">
         <input type="hidden" readonly class="form-control" name="reservation_request_id" value="{{request_id}}">
 
         <div class="mb-3 form-check" style="width: 50%;">
@@ -30,9 +30,9 @@
             <input type="text" readonly class="form-control" value="{{num_id}}">
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
-            <label for="validation" class="form-label"
+            <label for="dotation_code" class="form-label"
                    style="">Code dotation</label>
-            <input type="text" class="form-control" id="validation"
+            <input type="text" class="form-control" id="dotation_code"
                    value="{{dotation_code}}" readonly>
         </div>
         <div class="mb-3 form-check" style="width: 50%;">
@@ -41,6 +41,27 @@
             <input type="text" class="form-control" style="" id="validationCusto"
                    value="{{dotation_libelle}}" readonly>
         </div>
+        <div class="mb-3 form-check" style="width: 50%;">
+            <label for="validationCusto" class="form-label"
+                   style="">Montant</label>
+            <input type="text" class="form-control" style="" id="validationC"
+                   value="{{montant}}" readonly>
+        </div>
+        <b></b>
+        <div class="mb-3 form-check" style="width: 20%;margin-left: 35%;">
+            <a id="force"><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                 name="force"></a>
+            <label class="form-check-label" for="flexRadioDefault1">
+                Solde suffisant
+            </label>
+        </div>
+        <div class="mb-3 form-check" style="width:30%">
+            <a id="solde_ind"><input class="form-check-input" type="radio" name="flexRadioDefault"
+                                     id="flexRadioDefault2"></a>
+            <label class="form-check-label" for="flexRadioDefault2">
+                Solde insuffisant
+            </label>
+        </div>
 
         <div class="mb-3 form-check" id="oc_solde" style="width: 50%;display:none;">
             <label class="form-label">Nouveau Solde OC</label><span style="color: #af5151;">*</span>
@@ -48,12 +69,12 @@
                    class="form-control"
                    name="oc_new_solde">
             <span id="span_solde" class="form-control is-invalid"
-                  style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;">solde limite 100000 </span>
+                  style="display:none;color: #e93737;border: solid;text-align: center;margin-top: 2%;"> </span>
 
         </div>
         <div class="mb-3 form-check" id="ticket_num" style="width: 50%;display:none;">
             <label class="form-label">Numero Ticket OC </label><span style="color: #af5151;">*</span>
-            <input type="hidden" required class="form-control" maxlength="20"  oninput="ticketHandler(this)"
+            <input type="hidden" required class="form-control" maxlength="20" oninput="ticketHandler(this)"
                    id="inp_ticket"
                    name="oc_ticket_num">
             <span id="span_ticket" class="form-control is-invalid"
@@ -68,32 +89,15 @@
             Valider
         </button>
 
+
     </form>
 
-</div>
-
-{% endblock %}
-
-{% block button %}
-<div class="container"
-     style="margin-left: 2%;padding: 1%;margin-right: -22%;display: flex;flex-direction: row;align-content: stretch;flex-wrap: nowrap;justify-content: center;">
-
-    <!--    <a href="">-->
-    <button id="force" value="{{request_id}}" class="btn btn" type="submit"
-            style="width: 17%;height: 11%;margin-left: 5%;background-color: #1c84c6;color:white;">Réserver
-    </button>
-    <!--    </a>-->
-    <!--    <a href="">-->
-    <button class="btn btn-danger" id="solde_ind"
-            style="width: 24%;height: 11%; margin-left: 2px;background-color: #ED5565;">Annuler
-        réservation
-    </button>
-    <!--    </a>-->
-    <a href="{{ url_for('back_office.listreservation',)}}">
-        <button class="btn btn-warning" style="width: 109%;height: 101%;margin-left: 2px;color: white;">Retour</button>
-    </a>
 
 </div>
+ <form action="{{ url_for('back_office.listreservation',)}}" method="get">
+        <button type="submit" class="btn btn-warning" style="width: 120%;margin-left: -5%;margin-top: 13%;color: white;">Retour</button>
+    </form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
@@ -143,6 +147,7 @@ $(document).ready(function() {
 })
 $(document).ready(function() {
     $("#solde_ind").click(function() {
+
         $('#span_solde').css({
             'display': 'none'
         });
@@ -234,23 +239,53 @@ $("form").on("submit", function() {
 });
 
 function changeHandler(val) {
-    if (Number(val.value) > 100000) {
+    if ($('#dotation_code').val() == '1250'){
+         if (Number(val.value) > 10000) {
+            val.value = 10000;
+            $('#span_solde').css({
+            'display': 'block'
+            });
+            $('#span_solde').text('Solde limite 10000');
+        }if (Number(val.value) < 10000) {
+                $('#span_solde').css({
+                'display': 'none'
+                });
+        }
+    }if ($('#dotation_code').val() == '1820'){
+         if (Number(val.value) > 15000) {
+            val.value = 15000
+            $('#span_solde').css({
+            'display': 'block'
+            });
+            $('#span_solde').text('Solde limite 15000');
+        }if (Number(val.value) < 15000) {
+                $('#span_solde').css({
+                'display': 'none'
+                });
+        }
+    } else if ($('#dotation_code').val() == '302' || $('#dotation_code').val() == '301' || $('#dotation_code').val() == '303' ){
+        if (Number(val.value) > 100000) {
         val.value = 100000
         $('#span_solde').css({
             'display': 'block'
         });
-    }else if (val.value.length == 0) {
-     $('#span_solde').css({
+        $('#span_solde').text('Solde limite 100000');
+        } if (Number(val.value) < 100000) {
+                $('#span_solde').css({
+                'display': 'none'
+                });
+        }
+     } if (val.value.length == 0) {
+        $('#span_solde').css({
             'display': 'none'
         });
-    }else if (val.value.length > 0) {
-     $('#inp_solde').css({
+         $('#inp_solde').css({
             'border-color': ''
         });
-    }
-     if (Number(val.value) < 100000) {
-        $('#span_solde').css({
-        'display': 'none'
+    }else if (val.value.length > 0) {
+
+         $('#inp_solde').css({
+            'border-color': ''
         });
     }
 }
@@ -300,7 +335,9 @@ function ticketHandler(val) {
 
 
 
+
 </script>
+
 
 {% endblock %}
 

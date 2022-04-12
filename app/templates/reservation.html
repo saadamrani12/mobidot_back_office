@@ -34,28 +34,42 @@
         {% for reservation in reservations%}
 
         <tr style="text-align: center;">
-            <th scope="row">{{reservation.request_id}}</th>
-            <td>{{reservation.first_name}}</td>
-            <td>{{reservation.last_name}}</td>
-            <td>{{reservation.identification_type}}</td>
-            <td>{{reservation.identification_num}}</td>
-            <td>{{reservation.date_reservation}}</td>
+            <form action="{{ url_for('back_office.reservation_details')}}" method="post">
+            <th scope="row" > <input type="hidden" name="request_id" value="{{reservation.request_id}}">{{reservation.request_id}}</th>
+            <td ><input type="hidden" name="first_name" value="{{reservation.first_name}}">{{reservation.first_name}}</td>
+            <td > <input type="hidden" name="last_name" value="{{reservation.last_name}}" >{{reservation.last_name}}</td>
+            <td > <input name="type_id" type="hidden" value="{{reservation.identification_type}}">{{reservation.identification_type}}</td>
+            <td> <input name="num_id" type="hidden" value="{{reservation.identification_num}}">{{reservation.identification_num}}</td>
+            <td >{{reservation.date_reservation}}</td>
+             <input type="hidden" name="montant" value="{{reservation.montant}}">
+                <input type="hidden" name="dotation_code" value="{{reservation.dotation_code}}">
+                <input type="hidden" name="dotation_libelle" value="{{reservation.dotation_libelle}}">
 
             {% if code == '0000' %}
             <td style="text-align: center;">
-                <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant,dotation_code=reservation.dotation_code,dotation_libelle=reservation.dotation_libelle)}}">
-                    <button value="{{reservation.request_id}}" class="btn btn" style="background-color: #1c84c6;color:white;" type="submit">Régler
+<!--                <a href="{{ url_for('back_office.reservation_details',num_id=reservation.identification_num,type_id=reservation.identification_type, request_id=reservation.request_id,first_name=reservation.first_name,last_name=reservation.last_name,montant=reservation.montant,dotation_code=reservation.dotation_code,dotation_libelle=reservation.dotation_libelle)}}">-->
+                    <button  class="btn btn" style="background-color: #1c84c6;color:white;" type="submit">Régler
                         Reservation
                     </button>
-                </a>
+<!--                </a>-->
 
             </td>
             {% endif %}
-
+        </form>
         </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $( document ).ready(function() {
+        $("#details").css('display','none')
+         var newUrl = "listreservation";
+         history.pushState({}, null, newUrl);
+    });
+</script>
+
 
 {% endblock %}

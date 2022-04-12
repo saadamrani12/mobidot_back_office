@@ -1,5 +1,5 @@
 import requests, json
-from flask import current_app as app
+from flask import current_app as app,request,url_for
 from hashlib import sha256
 
 with open('./config.json') as config:
@@ -66,3 +66,8 @@ def cancel_reserve(data_json):
 def password_hash(s):
     hash = sha256((s).encode('utf-8')).hexdigest()
     return hash
+
+def redirect_url(default='back_office.listreservation'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)

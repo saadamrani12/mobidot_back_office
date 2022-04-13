@@ -3,31 +3,30 @@
 {% block content%}
 <link href="{{ url_for('static', filename='popup.css') }}" rel="stylesheet">
 <div class="" style="margin-top: -5%;">
-        <div class="wrapper">
-            <div class="logo"><img
-                    src="{{url_for('static' , filename='cp_logo.png')}}"
-                    alt=""></div>
-            <div class="text-center mt-4 name">Mobidot</div>
-             <p id="span" class="text-center mt-4 name"  style="color:#e68585;display:none;">Tout les champs sont requis</p>
-            <form class="p-3 mt-3" action="{{ url_for(('back_office.listreservation')) }}" method="POST"  id="form">
-                <div class="form-field d-flex align-items-center"><span class="far fa-user"></span> <input type="text"
-                                                                                                           name="app_id"
-                                                                                                           id="userName"
-                                                                                                           placeholder="Username">
-                </div>
-                <div class="form-field d-flex align-items-center"><span class="fas fa-key"></span> <input
-                        type="password" name="password" id="pwd" placeholder="Password"></div>
-                <button class="btn mt-3" type="submit" style="margin-bottom: 18%;">Accéder</button>
-            </form>
-            <span style="font-size: 55%;">Copyright Mobilab 2022</span> <span style="font-size: 55%;margin-left: 46%;">©2022</span>
-        </div>
+    <div class="wrapper">
+        <div class="logo"><img
+                src="{{url_for('static' , filename='cp_logo.png')}}"
+                alt=""></div>
+        <div class="text-center mt-4 name">Mobidot</div>
+        <p id="span" class="text-center mt-4 name" style="color:#e68585;display:none;">Tout les champs sont requis</p>
+        <form class="p-3 mt-3" action="{{ url_for(('back_office.listreservation')) }}" method="POST" id="form">
+            <div class="form-field d-flex align-items-center"><span class="far fa-user"></span> <input type="text"
+                                                                                                       name="app_id"
+                                                                                                       id="userName"
+                                                                                                       placeholder="Username">
+            </div>
+            <div class="form-field d-flex align-items-center"><span class="fas fa-key"></span> <input
+                    type="password" name="password" id="pwd" placeholder="Password"></div>
+            <button class="btn mt-3" type="submit" style="margin-bottom: 18%;">Accéder</button>
+        </form>
+        <span style="font-size: 55%;">Copyright Mobilab 2022</span> <span
+            style="font-size: 55%;margin-left: 46%;">©2022</span>
+    </div>
 
 
-<!--    </form>-->
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='login_script.js')}}"></script>
-
 
 
 {% endblock %}

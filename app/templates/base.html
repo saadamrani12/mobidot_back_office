@@ -35,12 +35,14 @@
         </div>
 
         {% endif %} {% endfor %} {% endif %} {% endwith %}
-        <!--        <div class="col-md mx-auto">-->
+
         {% block content %} {% endblock %}
-        <!--        </div>-->
+
     </div>
 </div>
-<div id="details" style="align-items: center;flex-direction: column;display: flex;padding: 3%;background: whitesmoke;margin-bottom: 5%;" class="col-md-10 mx-auto">
+<div id="details"
+     style="align-items: center;flex-direction: column;display: flex;padding: 3%;background: whitesmoke;margin-bottom: 5%;"
+     class="col-md-10 mx-auto">
     {% block details %}{% endblock %}
 </div>
 

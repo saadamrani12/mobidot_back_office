@@ -30,11 +30,6 @@ def force_reservation():
         request_id = request.form.get('reservation_request_id')
         oc_ticket_num = request.form.get('oc_ticket_num')
         oc_new_solde = request.form.get('oc_new_solde')
-        # if not oc_ticket_num or not oc_new_solde:
-        #     if 'data' in session:
-        #         session.pop('data')
-        #     flash('method', category='error')
-        #     return render_template('login.html')
         app.logger.info(session['data'])
         data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                     reservation_request_id=request_id,
@@ -69,11 +64,6 @@ def cancel_reservation():
     try:
         request_id = request.form.get('reservation_request_id')
         oc_new_solde = request.form.get('oc_new_solde')
-        # if not request_id or not oc_new_solde:
-        #     if 'data' in session:
-        #         session.pop('data')
-        #     flash('Please go step by step', category='error')
-        #     return render_template('login.html')
         data = dict(request_id=session['data']['request_id'], access_token=session['data']['access_token'],
                     reservation_request_id=request_id, app_id=int(session['data']['app_id']),
                     oc_new_solde=float(oc_new_solde))

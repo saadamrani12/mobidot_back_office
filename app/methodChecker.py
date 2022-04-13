@@ -9,7 +9,7 @@ def methodChecker():
             if request.method != 'POST':
                 if 'data' in session:
                     session.pop('data')
-                flash('Vous essayer une methode non allouée', category='error')
+                flash('Non autorisé', category='error')
                 return render_template('login.html')
 
             return fn(*args, **kwargs)

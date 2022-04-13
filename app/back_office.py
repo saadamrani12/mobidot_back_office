@@ -103,17 +103,11 @@ def reservation_details():
     app.logger.info(session['data'])
     if request.method != 'POST':
         return redirect(redirect_url())
-    request_id = request.form.get('request_id')
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    num_id = request.form.get('num_id')
-    type_id = request.form.get('type_id')
-    montant = request.form.get('montant')
-    dotation_code = request.form.get('dotation_code')
-    dotation_libelle = request.form.get('dotation_libelle')
-    return render_template('single_reservation.html', request_id=request_id, first_name=first_name, last_name=last_name,
-                           num_id=num_id, type_id=type_id, montant=montant, dotation_code=dotation_code,
-                           dotation_libelle=dotation_libelle)
+    return render_template('single_reservation.html', request_id=request.form.get('request_id'),
+                           first_name=request.form.get('first_name'), last_name=request.form.get('last_name'),
+                           num_id=request.form.get('num_id'), type_id=request.form.get('type_id'),
+                           montant=request.form.get('montant'), dotation_code=request.form.get('dotation_code'),
+                           dotation_libelle=request.form.get('dotation_libelle'))
 
 
 @back_office.route('/listreservation', methods=methods)

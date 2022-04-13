@@ -7,7 +7,7 @@ def sessionChecker():
         @wraps(fn)
         def wrapped(*args, **kwargs):
             if 'data' not in session:
-                flash('You should be Logged in', category='error')
+                flash('Connexion requise', category='error')
                 return render_template('login.html')
 
             return fn(*args, **kwargs)

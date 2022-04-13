@@ -40,7 +40,6 @@ def create_app():
     db.init_app(app)
     session.secret_key = 'super secret key'
 
-
     from app.back_office import back_office
     app.register_blueprint(back_office, url_prefix='/')
 

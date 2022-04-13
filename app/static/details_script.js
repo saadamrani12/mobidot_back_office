@@ -125,6 +125,7 @@ $("form").on("submit", function() {
 
     if (has_empty) {
         return false;
+
     }
     var ticket = $('#inp_ticket').val();
     console.log(ticket)

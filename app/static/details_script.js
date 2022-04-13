@@ -123,10 +123,36 @@ $("form").on("submit", function() {
 
     });
 
-    if (has_empty) {
-        return false;
+     if ($('#dotation_code').val() == '302' || $('#dotation_code').val() == '301' || $('#dotation_code').val() == '303'){
+         if ($('#inp_solde').val() == 100000) {
+          $('#inp_solde').css({
+            'border-color': '#e68585'
+            });
+            has_empty = true;
+         }
+     }
+     if ($('#dotation_code').val() == '1820'){
+         if ($('#inp_solde').val() == 15000) {
+             $('#inp_solde').css({
+            'border-color': '#e68585'
+            });
+            has_empty = true;
+         }
+     }
+     if ($('#dotation_code').val() == '1250'){
+         if ($('#inp_solde').val() == 10000) {
+             $('#inp_solde').css({
+            'border-color': '#e68585'
+            });
+            has_empty = true;
+         }
+     }
 
+    if (has_empty) {
+
+        return false;
     }
+
     var ticket = $('#inp_ticket').val();
     console.log(ticket)
     if ($("#ticket_num").is(":visible")) {

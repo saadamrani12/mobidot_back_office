@@ -128,6 +128,7 @@ $("form").on("submit", function() {
           $('#inp_solde').css({
             'border-color': '#e68585'
             });
+            $('#span_solde').text('Veuillez verifier le solde OC');
             has_empty = true;
          }
      }
@@ -136,6 +137,7 @@ $("form").on("submit", function() {
              $('#inp_solde').css({
             'border-color': '#e68585'
             });
+            $('#span_solde').text('Veuillez verifier le solde OC');
             has_empty = true;
          }
      }
@@ -144,6 +146,7 @@ $("form").on("submit", function() {
              $('#inp_solde').css({
             'border-color': '#e68585'
             });
+            $('#span_solde').text('Veuillez verifier le solde OC');
             has_empty = true;
          }
      }
